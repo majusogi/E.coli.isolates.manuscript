@@ -37,4 +37,37 @@ blat -minIdentity=80 -tileSize=11 -t=dna /nv/hp10/mjsg3/data/DATABASES/PlasmidFi
 $b.blast; 
 
 
+4. Extract only the plasmids with replicons: 
+
+for i in *.filtered.blast; do l=$(cat $i | awk '{print $2}'); echo $(basename $i .filtered.blast) $l; done | tr ' ' '\t' > Helicobac.ANI.txt
+
+awk '{print $1".fna"}' Borbon.plasmids.txt > filte.plasmids.txt
+ 
+for i in $(cat filte.plasmids.txt); do cp $i filter.plasmids/; done
+
+
+5. Annotate plasmids:
+
+"""""""""""""""""Using CARD DB""""""""""""""""
+
+
+
+
+
+"""""""""""""""""Using Prokka""""""""""""""""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
