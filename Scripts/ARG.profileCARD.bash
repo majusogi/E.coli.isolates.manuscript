@@ -26,6 +26,47 @@ Table.merge.pl
   $i .filtered.blast).count; done 
 
 
+To Plot in R: 
+
+## BarPlots : 
+library(ggplot2)
+
+#To plot the mean with the std. dev from different location or values. 
+#E. coli isolates from rural and urban
+
+B<-read.csv(file='inputR.csv', head=TRUE,sep=",")
+Bdata <- as.data.frame(B)
+attach(Bdata)
+
+## BarPlots with standar error bar
+dodge <- position_dodge(width = 0.9)
+limits <- aes(ymax = B$value + B$std, ymin = B$value - B$std)
+p <- ggplot(data = B, aes(x=reorder(class,-value), y=value, fill=location))
+
+p + geom_bar(stat = "identity", position = dodge) + 
+  geom_errorbar(limits, position = dodge, width = 0.25) +  
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(), 
+        axis.title.x=element_blank()) + theme_classic() + 
+  scale_fill_manual(values=c("grey", "lightblue")) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+##To sort the data de mayor a menor:
+p <- ggplot(data = B, aes(x=reorder(class,-value), y=value, fill=location))
+  
+# To rotate x labes: 
+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+## Colors by Metadata
+scale_fill_manual(values=c("grey", "lightblue")) + 
+ 
+scale_color_manual(values=c("orange", "chartreuse4"))
+
+FIELD_LABELS,DAEC,EPEC-a,EPEC-t,ETEC,EIEC,EAEC
+FIELD_COLORS,#FF3333,#FFCC33,#FF9900,#0099FF,#009933,#9900FF
+FIELD_SHAPES,1,1,1,1,1,1
+HEIGHT_FACTOR,2
+SYMBOL_SPACING,20
+
 
 Location of count files with all Isolates from different locations: 
 
